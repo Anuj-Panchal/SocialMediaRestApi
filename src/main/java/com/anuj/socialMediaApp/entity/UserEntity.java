@@ -1,11 +1,11 @@
 package com.anuj.socialMediaApp.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class UserEntity {
@@ -14,9 +14,15 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Size(min = 1)
     private String name;
 
+    @Past
     private LocalDate dateOfBirth;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<PostEntity> posts;
 
     public UserEntity() {
     }
@@ -48,6 +54,14 @@ public class UserEntity {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public List<PostEntity> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<PostEntity> posts) {
+        this.posts = posts;
     }
 
     @Override

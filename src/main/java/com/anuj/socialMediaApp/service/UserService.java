@@ -10,7 +10,7 @@ public interface UserService {
 
     ResponseEntity<List<UserEntity>> getAllUsers();
 
-    ResponseEntity<UserEntity> saveUser(String name, String dateOfBirth);
+    ResponseEntity<UserEntity> saveUser(String name, LocalDate dateOfBirth);
 
     ResponseEntity<UserEntity> getUser(Integer id);
 

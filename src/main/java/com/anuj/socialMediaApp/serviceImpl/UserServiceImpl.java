@@ -30,10 +30,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<UserEntity> saveUser(String name, String dateOfBirth) {
-        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public ResponseEntity<UserEntity> saveUser(String name, LocalDate dateOfBirth) {
         try {
-            UserEntity userEntity = new UserEntity(name, LocalDate.parse(dateOfBirth, df));
+            UserEntity userEntity = new UserEntity(name, dateOfBirth);
 
             userEntity = userRepository.save(userEntity);
             URI uri = ServletUriComponentsBuilder
