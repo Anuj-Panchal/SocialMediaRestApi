@@ -39,6 +39,14 @@ You can find the Swagger/OpenAPI documentation for this API below:
                     "$ref": "#/components/schemas/UserEntity"
                   }
                 }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserEntity"
+                  }
+                }
               }
             }
           }
@@ -66,6 +74,84 @@ You can find the Swagger/OpenAPI documentation for this API below:
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/UserEntity"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEntity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/posts": {
+      "get": {
+        "tags": [
+          "post-controller"
+        ],
+        "operationId": "getAllPosts",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PostEntity"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "post-controller"
+        ],
+        "operationId": "createPost",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostEntity"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostEntity"
                 }
               }
             }
@@ -95,6 +181,11 @@ You can find the Swagger/OpenAPI documentation for this API below:
             "description": "OK",
             "content": {
               "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserEntity"
+                }
+              },
+              "application/xml": {
                 "schema": {
                   "$ref": "#/components/schemas/UserEntity"
                 }
@@ -132,6 +223,46 @@ You can find the Swagger/OpenAPI documentation for this API below:
           }
         }
       }
+    },
+    "/users/{id}/posts/{postId}": {
+      "get": {
+        "tags": [
+          "post-controller"
+        ],
+        "operationId": "getAllPosts_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "postId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PostEntity"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -151,6 +282,21 @@ You can find the Swagger/OpenAPI documentation for this API below:
           "dateOfBirth": {
             "type": "string",
             "format": "date"
+          }
+        }
+      },
+      "PostEntity": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "content": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/UserEntity"
           }
         }
       }
